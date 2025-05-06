@@ -117,10 +117,14 @@ header {
     top: 0;
     left: 0;
     z-index: 1000;
+    padding: 15px 0;
+}
+
+.navbar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 5%;
+    width: 100%;
 }
 
 .logo-container {
@@ -132,24 +136,49 @@ header {
     height: 60px;
 }
 
-nav ul {
-    display: flex;
+.navbar-toggler {
+    display: none;
+    background-color: transparent;
+    border: none;
+    color: var(--dark-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    z-index: 1001;
 }
 
-nav ul li {
+.navbar-toggler:focus {
+    outline: none;
+}
+
+.navbar-toggler .navbar-toggler-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
     margin-left: 30px;
 }
 
-nav ul li a {
+.nav-link {
     color: var(--dark-color);
     font-weight: 600;
     text-transform: uppercase;
     font-size: 0.9rem;
     letter-spacing: 1px;
     position: relative;
+    text-decoration: none;
 }
 
-nav ul li a:after {
+.nav-link:after {
     content: '';
     position: absolute;
     width: 0;
@@ -160,8 +189,12 @@ nav ul li a:after {
     transition: var(--transition);
 }
 
-nav ul li a:hover:after {
+.nav-link:hover:after {
     width: 100%;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
 }
 
 /* Hero Section */
@@ -544,6 +577,42 @@ footer {
 }
 
 /* Responsive */
+@media (max-width: 1200px) {
+    /* Estilos para notebooks e netbooks */
+    .navbar-toggler {
+        display: block;
+    }
+
+    .navbar-collapse {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 250px;
+        height: 100vh;
+        background-color: white;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .navbar-collapse.show {
+        right: 0;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-item {
+        margin: 10px 0;
+    }
+}
+
 @media (max-width: 992px) {
     .hero h1 {
         font-size: 3rem;
@@ -555,15 +624,7 @@ footer {
 }
 
 @media (max-width: 768px) {
-    nav ul {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    nav ul li {
-        margin: 5px 0;
-    }
-
+    /* Modificamos o anterior por isso esta seção está mais enxuta */
     .hero h1 {
         font-size: 2.5rem;
     }

@@ -3,6 +3,75 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Iniciando carregamento de imagens...');
 
+    // Verificar se o Bootstrap está disponível
+    if (typeof bootstrap !== 'undefined') {
+        console.log('Bootstrap carregado corretamente');
+
+        // Usando o modo nativo do Bootstrap 5 para o menu
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+
+        if (navbarToggler && navbarCollapse) {
+            // Criar instância do Collapse do Bootstrap para o menu
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                toggle: false
+            });
+
+            // Adicionar evento de clique ao botão do menu usando Bootstrap
+            navbarToggler.addEventListener('click', function(e) {
+                e.preventDefault();
+                bsCollapse.toggle();
+            });
+
+            // Fechar o menu quando um link é clicado
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (navbarCollapse.classList.contains('show')) {
+                        bsCollapse.hide();
+                    }
+                });
+            });
+
+            // Fechar o menu quando clicar fora dele
+            document.addEventListener('click', function(event) {
+                const isClickInside = navbarToggler.contains(event.target) || navbarCollapse.contains(event.target);
+                if (!isClickInside && navbarCollapse.classList.contains('show')) {
+                    bsCollapse.hide();
+                }
+            });
+        }
+    } else {
+        console.warn('Bootstrap não detectado, usando fallback manual para o menu');
+
+        // Menu hambúrguer para dispositivos móveis (fallback)
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+
+        // Adicionar evento de clique ao botão do menu
+        if (navbarToggler) {
+            navbarToggler.addEventListener('click', function() {
+                navbarCollapse.classList.toggle('show');
+            });
+        }
+
+        // Fechar o menu quando um link é clicado
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navbarCollapse.classList.remove('show');
+            });
+        });
+
+        // Fechar o menu quando clicar fora dele
+        document.addEventListener('click', function(event) {
+            const isClickInside = navbarToggler.contains(event.target) || navbarCollapse.contains(event.target);
+            if (!isClickInside && navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+            }
+        });
+    }
+
     // Carregar logo
     const logoImages = document.querySelectorAll('img[src="images/logo.png"]');
     logoImages.forEach(img => {
