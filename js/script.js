@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Carregar imagens de roupas
     const clothesImages = {
         'images/clothes1.jpg': 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80',
-        'images/clothes2.jpg': 'https://images.unsplash.com/photo-1551163943-3f7c8a5deeab?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80',
+        'images/clothes2.jpg': 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80',
         'images/clothes3.jpg': 'https://images.unsplash.com/photo-1544441893-675973e31985?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80',
         'images/clothes4.jpg': 'https://images.unsplash.com/photo-1562157873-818bc0726f68?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80',
     };
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Carregar imagens de bolsas
     const bagImages = {
         'images/bag1.jpg': 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80',
-        'images/bag2.jpg': 'https://images.unsplash.com/photo-1566150905458-1bf586d2d7b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80',
+        'images/bag2.jpg': 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80',
         'images/bag3.jpg': 'https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80',
         'images/bag4.jpg': 'https://images.unsplash.com/photo-1597633125097-5a9961e1f03d?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=400&q=80',
     };
