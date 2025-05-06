@@ -1,6 +1,8 @@
 // Script para carregar imagens da web para o Closet da Eve
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Iniciando carregamento de imagens...');
+
     // Carregar logo
     const logoImages = document.querySelectorAll('img[src="images/logo.png"]');
     logoImages.forEach(img => {
@@ -16,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Carregar logos das marcas
     const brandLogos = {
-        'images/farm-logo.png': 'https://via.placeholder.com/150x80/9ACD32/ffffff?text=Farm',
-        'images/animale-logo.png': 'https://via.placeholder.com/150x80/800080/ffffff?text=Animale',
-        'images/arezzo-logo.png': 'https://via.placeholder.com/150x80/FF6347/ffffff?text=Arezzo',
+        'images/farm-logo.png': 'https://www.farmrio.com.br/live/invoke/website/loaders/image.ts?src=https%3A%2F%2Fdeco-sites-assets.s3.sa-east-1.amazonaws.com%2Ffarmrio%2F13206080-1314-4ea2-8421-44cc11851e18%2Flogo.svg&fit=cover&width=244&height=50',
+        'images/animale-logo.png': 'https://bobagsprod.s3.sa-east-1.amazonaws.com/uploads/static/5ffa3352150041e23c07a01af7f7dfad9deca99f.png',
+        'images/arezzo-logo.png': 'https://logodownload.org/wp-content/uploads/2019/09/arezzo-logo-1.png',
     };
 
     // Carregar imagens de roupas
@@ -50,32 +52,54 @@ document.addEventListener('DOMContentLoaded', function() {
         'images/store.jpg': 'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=500&q=80'
     };
 
-    // Função para substituir as imagens
+    // Função melhorada para substituir as imagens com verificação de erros
     function replaceImages(imageMap) {
-        for (const [src, newSrc] of Object.entries(imageMap)) {
-            const images = document.querySelectorAll(`img[src="${src}"]`);
-            images.forEach(img => {
-                img.src = newSrc;
-            });
+        try {
+            for (const [src, newSrc] of Object.entries(imageMap)) {
+                const images = document.querySelectorAll(`img[src="${src}"]`);
+                if (images.length > 0) {
+                    images.forEach(img => {
+                        // Criar nova imagem para pré-carregar
+                        const tempImg = new Image();
+                        tempImg.onload = function() {
+                            img.src = newSrc;
+                        };
+                        tempImg.onerror = function() {
+                            // Usar placeholder se a nova imagem falhar
+                            img.src = 'https://via.placeholder.com/400x400/cccccc/666666?text=Imagem+Indisponível';
+                        };
+                        tempImg.src = newSrc;
+                    });
+                }
+            }
+        } catch (error) {
+            console.error('Erro ao substituir imagens:', error);
         }
     }
 
-    // Substituir todas as imagens
-    replaceImages(featuredImages);
-    replaceImages(brandLogos);
-    replaceImages(clothesImages);
-    replaceImages(shoesImages);
-    replaceImages(bagImages);
-    replaceImages(storeImage);
+    // Adicionar timeout para evitar bloqueio
+    setTimeout(() => {
+        try {
+            // Substituir todas as imagens
+            replaceImages(featuredImages);
+            replaceImages(brandLogos);
+            replaceImages(clothesImages);
+            replaceImages(shoesImages);
+            replaceImages(bagImages);
+            replaceImages(storeImage);
 
-    // Adicionar classe para melhorar a aparência das imagens
-    const allImages = document.querySelectorAll('img');
-    allImages.forEach(img => {
-        img.classList.add('img-responsive');
-        img.addEventListener('error', function() {
-            this.src = 'https://via.placeholder.com/400x400/cccccc/666666?text=Imagem+Indisponível';
-        });
-    });
+            // Adicionar classe para melhorar a aparência das imagens
+            const allImages = document.querySelectorAll('img');
+            allImages.forEach(img => {
+                img.classList.add('img-responsive');
+                img.addEventListener('error', function() {
+                    this.src = 'https://via.placeholder.com/400x400/cccccc/666666?text=Imagem+Indisponível';
+                });
+            });
 
-    console.log('Todas as imagens foram carregadas com sucesso!');
+            console.log('Todas as imagens foram processadas!');
+        } catch (error) {
+            console.error('Erro durante o carregamento das imagens:', error);
+        }
+    }, 100);
 });
